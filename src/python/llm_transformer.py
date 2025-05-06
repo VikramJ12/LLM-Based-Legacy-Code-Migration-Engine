@@ -47,8 +47,10 @@ class LLMTransformer:
             ],
             stream=False
         )
-        
-        return response['message']['content'].strip()
+
+        raw_code = response['message']['content']
+        cleaned = raw_code.strip().strip("```python").strip("```").strip("'''").strip()
+        return cleaned
     
     def _graph_to_nl(self, graph_json: Dict[str, Any]) -> str:
         """
